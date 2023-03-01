@@ -93,3 +93,6 @@
     border-width: 1px;
 }
 
+a[title]:hover::after {
+    background-color: black;
+}
