@@ -107,12 +107,16 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip=[]) {
 
   if (!this.isValidPos(nextPos) || !this.isOccupied(nextPos) ) {
     return new Array();
+
   } else if (this.getPiece(nextPos).color === color) {
+    // piecesToFlip.push(this.getPiece(nextPos));
     return piecesToFlip;
-  } else if (this.getPiece(nextPos).color !== color) {
-    piecesToFlip.push(this.getPiece(nextPos));
-    this._positionsToFlip(nextPos, color, dir, piecesToFlip);
-  }
+
+  } else { // if (this.getPiece(nextPos).color !== color)
+    piecesToFlip.push((nextPos));
+    return this._positionsToFlip(nextPos, color, dir, piecesToFlip);
+
+  };
 
 
 };
@@ -123,6 +127,23 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip=[]) {
  * color being flipped.
  */
 Board.prototype.validMove = function (pos, color) {
+  // Board.DIRS.map(_positionsToFlip(pos, color, el, piecesToFlip) {
+  //   if (this.length !== 0) {
+  //     return true
+  //   };
+  // }); will need to look up how to use forEach loop.. :(
+  
+  
+  for (let i = 0 ; i < Board.DIRS.length ; i++) {
+    let dir = Board.DIRS[i];
+    let result = this._positionsToFlip(pos, color, dir);
+    if (result.length !== 0) {
+      return true;
+    }
+  };
+
+  return false;
+  
 };
 
 /**
