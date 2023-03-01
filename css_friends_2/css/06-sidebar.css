@@ -14,18 +14,33 @@
 
 .profile-nav li {
     /* border-top: 1px solid gray; */
-    border-bottom: 1px solid gray;
-
+    border-bottom: 1px solid rgb(179, 171, 171);
+    padding: 5px;
+    /* font-style: bold; */
+    font-weight: bold;
+    
 }
 
 .profile-nav li:first-child {
-    border-top: 1px solid gray;
+    border-top: 1px solid rgb(179, 171, 171);
     /* border-bottom: 1px solid gray; */
 
 }
 
 .profile-nav {
-    margin-top: 50px;
+    margin-top: 20px;
     /* border-bottom: 1px solid gray; */
 
+}
+
+.name-display{
+    font-size: 20px ;
+    font-weight: bold;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+}
+
+.bio {
+    font-size: 15px;
 }
