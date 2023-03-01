@@ -1,1 +1,8 @@
 /* PHASE 0: Sidebar */
+.profile-picture {
+    margin-top: -100px;
+    position: relative;
+    /* border-style: solid;
+    border-color: green;
+    border-width: 2px; */
+}
