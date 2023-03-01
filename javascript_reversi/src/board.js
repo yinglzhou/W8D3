@@ -9,14 +9,19 @@ if (typeof window === 'undefined'){
  * and two white pieces at [3, 3] and [4, 4]
  */
 function _makeGrid () {
-}
+  let spaces = new Array(8);
+  for (let i = 0; i < spaces.length; i++){
+    spaces[i] = new Array(8);
+  };
+  return spaces;
+};
 
 /**
  * Constructs a Board with a starting grid set up.
  */
 function Board () {
   this.grid = _makeGrid();
-}
+};
 
 Board.DIRS = [
   [ 0,  1], [ 1,  1], [ 1,  0],
