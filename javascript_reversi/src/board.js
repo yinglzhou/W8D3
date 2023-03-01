@@ -127,20 +127,25 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip=[]) {
  * color being flipped.
  */
 Board.prototype.validMove = function (pos, color) {
-  // Board.DIRS.map(_positionsToFlip(pos, color, el, piecesToFlip) {
-  //   if (this.length !== 0) {
-  //     return true
-  //   };
-  // }); will need to look up how to use forEach loop.. :(
-  
-  
-  for (let i = 0 ; i < Board.DIRS.length ; i++) {
-    let dir = Board.DIRS[i];
-    let result = this._positionsToFlip(pos, color, dir);
+  const instance = this
+  Board.DIRS.forEach(function(dir) {
+    debugger
+   let result =  instance._positionsToFlip(pos, color, dir, piecesToFlip=[])
     if (result.length !== 0) {
       return true;
-    }
-  };
+    };
+  }); 
+
+  // will need to look up how to use forEach loop.. :(
+  
+  
+  // for (let i = 0 ; i < Board.DIRS.length ; i++) {
+  //   let dir = Board.DIRS[i];
+  //   let result = this._positionsToFlip(pos, color, dir);
+  //   if (result.length !== 0) {
+  //     return true;
+  //   }
+  // };
 
   return false;
   
@@ -153,6 +158,29 @@ Board.prototype.validMove = function (pos, color) {
  * Throws an error if the position represents an invalid move.
  */
 Board.prototype.placePiece = function (pos, color) {
+  if (!this.isValidPos(pos, color)) {
+    throw new Error('Not valid pos!');
+  };
+
+  if (!this.validMove(pos, color)) {
+    throw new Error ('Not a valid move!');
+  }
+
+  let needFlipping = [];
+
+  for (let i = 0 ; i < Board.DIRS.length ; i++) {
+    let dir = Board.DIRS[i];
+    let result = this._positionsToFlip(pos, color, dir);
+    if (result.length !== 0){
+      needFlipping.concat(result)
+    }
+  };
+
+  for (let i = 0; i < needFlipping.length; i++) {
+    let pieceToBeFlipped = this.getPiece(needFlipping[i])
+    pieceToBeFlipped.flip();
+  }
+
 };
 
 /**
