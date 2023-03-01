@@ -104,7 +104,7 @@ Board.prototype.isOccupied = function (pos) {
  */
 Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip=[]) {
   let nextPos = [(pos[0]+ dir[0]), (pos[1] + dir[1])];
-
+  // debugger
   if (!this.isValidPos(nextPos) || !this.isOccupied(nextPos) ) {
     return new Array();
 
@@ -126,29 +126,31 @@ Board.prototype._positionsToFlip = function(pos, color, dir, piecesToFlip=[]) {
  * taking the position will result in some pieces of the opposite
  * color being flipped.
  */
-Board.prototype.validMove = function (pos, color) {
-  const instance = this
-  Board.DIRS.forEach(function(dir) {
-    debugger
-   let result =  instance._positionsToFlip(pos, color, dir, piecesToFlip=[])
-    if (result.length !== 0) {
-      return true;
-    };
-  }); 
-
-  // will need to look up how to use forEach loop.. :(
-  
-  
-  // for (let i = 0 ; i < Board.DIRS.length ; i++) {
-  //   let dir = Board.DIRS[i];
-  //   let result = this._positionsToFlip(pos, color, dir);
-  //   if (result.length !== 0) {
+Board.prototype.validMove = function(pos, color) {
+  // const instance = this;
+  // let piecesToFlip = [];
+ 
+  // Board.DIRS.forEach(function(dir) {
+  //   let result = instance._positionsToFlip(pos, color, dir, piecesToFlip)
+  //   // debugger
+  //   if (result.length > 0) {
   //     return true;
   //   }
-  // };
+  // })
+
+  // return false;
+  // we cannot use a for each loop because there is no way to return early out of a forEach loop
+  
+  
+  for (let i = 0 ; i < Board.DIRS.length ; i++) {
+    let dir = Board.DIRS[i];
+    let result = this._positionsToFlip(pos, color, dir);
+    if (result.length !== 0) {
+      return true;
+    }
+  };
 
   return false;
-  
 };
 
 /**
@@ -158,27 +160,33 @@ Board.prototype.validMove = function (pos, color) {
  * Throws an error if the position represents an invalid move.
  */
 Board.prototype.placePiece = function (pos, color) {
+  // let pos = [poss[1], poss[0]]
+  // debugger
   if (!this.isValidPos(pos, color)) {
-    throw new Error('Not valid pos!');
+    throw new Error('Invalid move!');
   };
 
   if (!this.validMove(pos, color)) {
-    throw new Error ('Not a valid move!');
+    throw new Error ('Invalid move!');
   }
-
+ 
+  if (this.isOccupied(pos)) {
+    throw new Error ('Invalid move!');
+  }
+  this.grid[pos[0]][pos[1]] = new Piece(color);
   let needFlipping = [];
 
   for (let i = 0 ; i < Board.DIRS.length ; i++) {
     let dir = Board.DIRS[i];
     let result = this._positionsToFlip(pos, color, dir);
+    // debugger
     if (result.length !== 0){
-      needFlipping.concat(result)
+      needFlipping = needFlipping.concat(result)
     }
   };
-
+  // debugger
   for (let i = 0; i < needFlipping.length; i++) {
-    let pieceToBeFlipped = this.getPiece(needFlipping[i])
-    pieceToBeFlipped.flip();
+    this.getPiece(needFlipping[i]).flip();
   }
 
 };
@@ -188,6 +196,7 @@ Board.prototype.placePiece = function (pos, color) {
  * the Board for a given color.
  */
 Board.prototype.validMoves = function (color) {
+
 };
 
 /**
