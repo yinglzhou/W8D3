@@ -79,6 +79,17 @@
 }
 
 .friend-thumbnails li {
+    /* border-style: solid;
+    border-radius: 10px;
+    border-color: black; */
     display: flex; 
 
 }
+
+.friend-thumbnails img {
+    border-style: solid;
+    border-radius: 5px;
+    border-color: black;
+    border-width: 1px;
+}
+
