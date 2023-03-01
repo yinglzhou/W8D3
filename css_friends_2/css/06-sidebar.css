@@ -2,7 +2,30 @@
 .profile-picture {
     margin-top: -100px;
     position: relative;
-    /* border-style: solid;
-    border-color: green;
-    border-width: 2px; */
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+.profile-picture img {
+    border-radius: 10px;
+}
+
+.profile-nav li {
+    /* border-top: 1px solid gray; */
+    border-bottom: 1px solid gray;
+
+}
+
+.profile-nav li:first-child {
+    border-top: 1px solid gray;
+    /* border-bottom: 1px solid gray; */
+
+}
+
+.profile-nav {
+    margin-top: 50px;
+    /* border-bottom: 1px solid gray; */
+
 }
